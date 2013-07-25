@@ -1075,7 +1075,7 @@ public class MainForm extends JFrame implements Runnable{
 		{
 			String comboBoxString = combo.getSelectedItem().toString();
 			int g_size=Integer.parseInt(comboBoxString.substring(0, 1)); 
-			setLevel(g_size); //g_size*g_size ��ŭ�� ��ư ��
+			setLevel(g_size);
 		} 
 	} 
 
