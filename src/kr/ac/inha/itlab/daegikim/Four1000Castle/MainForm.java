@@ -382,7 +382,7 @@ public class MainForm extends JFrame implements Runnable{
 					i++;
 				}
 				else{
-					gameButtons[i]=new JButton(nullIcon);
+                    gameButtons[i]=new JButton(nullIcon);
 					gameButtons[i].setBackground(Color.ORANGE);
 					gameButtons[i].setBorderPainted(false);
 					gameButtons[i].setEnabled(false);
@@ -429,13 +429,22 @@ public class MainForm extends JFrame implements Runnable{
 		centerPanel.updateUI();
 	}
 
+    /**
+     * Find path with source and target
+     * @param sCol Source column
+     * @param sRow Source row
+     * @param tCol Target column
+     * @param tRow Target row
+     */
     public void findPath (int sCol, int sRow, int tCol, int tRow)
 	{
+        //같은 그림이 아니라면
 		if (OX[sRow][sCol] != OX[tRow][tCol]) {
 			way.curv = 3;
 			return;
 		}
 
+        //source 와 target 이 같다면
 		if (sCol == tCol && sRow == tRow) {
 			way.curv = 3;
 			return;
@@ -443,7 +452,10 @@ public class MainForm extends JFrame implements Runnable{
 		
 	
 		int i;
+
+        //커브 없이 블럭 제거가 가능한 경우
 		way.curv=0;
+        //같은 Row에 두 버튼이 있다.
 		if ( sRow == tRow ) {
 			int diff=Math.max(sCol,tCol)-Math.min(sCol,tCol);
 			int startCol= Math.min(sCol,tCol);
@@ -457,7 +469,8 @@ public class MainForm extends JFrame implements Runnable{
 			
 			if (i==diff) return;
 		}
-		
+
+        //같은 Column에 두 버튼이 있다.
 		if ( sCol== tCol ) {
 			int diff=Math.max(sRow,tRow)-Math.min(sRow,tRow);
 			int startRow= Math.min(sRow,tRow);
@@ -475,8 +488,8 @@ public class MainForm extends JFrame implements Runnable{
 			if (i==diff) return;
 		}
 
+        //1번의 커브로 블럭 제거가 가능한 경우
 		way.curv=1;
-
 		if (Math.max(sCol,tCol)-Math.min(sCol,tCol) > 0 && 
 			Math.max(sRow,tRow)-Math.min(sRow,tRow) > 0 ) {
 			way.x0=sCol;
@@ -533,6 +546,7 @@ public class MainForm extends JFrame implements Runnable{
 			}
 		}
 
+        //2번의 커브로 블럭 제거가 가능한 경우
 		way.curv=2;
 		int leftCol,rightCol;
 		leftCol=Math.min(sCol,tCol);
@@ -573,7 +587,8 @@ public class MainForm extends JFrame implements Runnable{
 				}
 			}
 		}
-		
+
+        //그 외에는 3번의 커브 이상이다.
 		way.curv=3;
 	}
 
