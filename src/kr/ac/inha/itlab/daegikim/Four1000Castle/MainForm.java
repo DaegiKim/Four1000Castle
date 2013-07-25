@@ -30,8 +30,7 @@ public class MainForm extends JFrame implements Runnable{
 
 	private boolean ThreadControl;
 	private long StartMillis;
-	private long NowMillis;
-	private long diff;
+    private long diff;
 	private long SaveMillis;
 
 	public final int ROW_CNT = 12, COL_CNT = 18;
@@ -61,8 +60,7 @@ public class MainForm extends JFrame implements Runnable{
 	private JPanel centerPanel;
 	private JPanel southPanel;
 	private JPanel northPanel;
-	private JPanel westPanel;
-	private JPanel eastPanel;
+    private JPanel eastPanel;
 	private JComboBox combo;
 	private JLabel time;
 	private JLabel score;
@@ -114,7 +112,8 @@ public class MainForm extends JFrame implements Runnable{
 		centerPanel = new JPanel(); centerPanel.setBackground(Color.DARK_GRAY);
 		southPanel = new JPanel(); southPanel.setBackground(Color.DARK_GRAY);
 		northPanel = new JPanel(); northPanel.setBackground(Color.DARK_GRAY);
-		westPanel = new JPanel(); westPanel.setBackground(Color.DARK_GRAY);
+        JPanel westPanel = new JPanel();
+        westPanel.setBackground(Color.DARK_GRAY);
 		eastPanel = new JPanel(); eastPanel.setBackground(Color.DARK_GRAY);
 
 		southPanel.setLayout(new FlowLayout());
@@ -443,7 +442,7 @@ public class MainForm extends JFrame implements Runnable{
 		}
 		
 	
-		int i = 0;
+		int i;
 		way.curv=0;
 		if ( sRow == tRow ) {
 			int diff=Math.max(sCol,tCol)-Math.min(sCol,tCol);
@@ -922,12 +921,12 @@ public class MainForm extends JFrame implements Runnable{
 			}
 			way = new Way();
 
-			for(int k=0; k<OX.length; k++){
-				for(int j=0; j<OX[k].length; j++){
-					System.out.print(OX[k][j]+"\t");
-				}
-				System.out.println();
-			}
+            for (int[] aOX : OX) {
+                for (int j = 0; j < aOX.length; j++) {
+                    System.out.print(aOX[j] + "\t");
+                }
+                System.out.println();
+            }
 			
 			System.gc();
 		}
@@ -938,20 +937,16 @@ public class MainForm extends JFrame implements Runnable{
 	{
 		public void actionPerformed(ActionEvent event)
 		{
-			for(int i=0; i<OX.length; i++){
-				for(int j=0; j<OX[i].length; j++){
-					System.out.print(OX[i][j]+"\t");
-				}
-				System.out.println();
-			}
+            for (int[] aOX : OX) {
+                for (int anAOX : aOX) System.out.print(anAOX + "\t");
+                System.out.println();
+            }
 
 			int i=0;
 			for(JButton bt : gameButtons){
 				nCol=(i/14);
 				nRow=(i%14);
-				if(OX[nRow][nCol]!=-1){
-					bt.setEnabled(true);
-				}
+				if(OX[nRow][nCol]!=-1) bt.setEnabled(true);
 				i++;
 			}
 			onStart();
@@ -978,7 +973,7 @@ public class MainForm extends JFrame implements Runnable{
 			int rows=COL_CNT+2;
 			int cols=ROW_CNT+2;
 			
-			int temp=0;
+			int temp;
 
 			for(int row=0; row<rows; row++){
 				for(int col=0; col<cols; col++){
@@ -1036,7 +1031,7 @@ public class MainForm extends JFrame implements Runnable{
 				SaveMillis = diff;
 				onPause();
 			}
-			else if(isPause){
+			else {
 				int i=0;
 				for(JButton bt : gameButtons){
 					nCol=(i/14);
@@ -1060,7 +1055,7 @@ public class MainForm extends JFrame implements Runnable{
 			if(isScoreFramePopUp){
 				isScoreFramePopUp=false;
 			}
-			else if(!isScoreFramePopUp){
+			else {
 				scoreform.setVisible(true);
 				scoreform.updateForm();
 				isScoreFramePopUp=true;
@@ -1092,7 +1087,6 @@ public class MainForm extends JFrame implements Runnable{
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		System.out.println("run");
 		while(ThreadControl){
 			updateTime();
@@ -1105,8 +1099,8 @@ public class MainForm extends JFrame implements Runnable{
 
 	public void updateTime(){
 		try{
-			NowMillis=Calendar.getInstance().getTimeInMillis();
-			diff=NowMillis-StartMillis;
+            long nowMillis = Calendar.getInstance().getTimeInMillis();
+			diff= nowMillis -StartMillis;
 			diff+=SaveMillis;
 			time.setText("Time: "+diff/60000+":"+dfsc.format((diff%60000)/1000)+"."+dfms.format(diff%1000));
 			northPanel.updateUI();
