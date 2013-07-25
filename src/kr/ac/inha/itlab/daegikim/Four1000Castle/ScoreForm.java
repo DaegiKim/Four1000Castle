@@ -44,7 +44,7 @@ public class ScoreForm extends JFrame {
 
 	public ScoreForm(TreeMap<Long, String> scoreListLv1, TreeMap<Long, String> scoreListLv2, TreeMap<Long, String> scoreListLv3, TreeMap<Long, String> scoreListLv4, TreeMap<Long, String> scoreListLv5){
 		super("SCORE");
-		setSize(400, 600);
+		setSize(500, 600);
 		setResizable(false);
 
 		Dimension screen=Toolkit.getDefaultToolkit().getScreenSize();
